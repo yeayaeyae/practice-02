@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>ПР3 — эксперименты DOM и событий</title>
+</head>
+<body>
+<main>
+  <h1>Эксперименты DOM и событий</h1>
+  <button id="add-record" type="button">Добавить запись</button>
+  <button id="edit-title" type="button"><span>Изменить заголовок</span></button>
+  <button id="dataset-button" type="button" data-task-id="23">Проверить dataset</button>
+  <div id="event-container">
+    <p id="event-output">Нажмите на «Изменить заголовок».</p>
+  </div>
+  <ul id="items"><li>Начальная запись</li></ul>
+  <pre id="log"></pre>
+</main>
+<script>
+const initialItems = document.querySelectorAll("#items li");
+const container = document.querySelector("#event-container");
+const log = document.querySelector("#log");
+
+console.log("Отсутствующий:", document.querySelector("#missing"));
+console.log("Пустая коллекция:", document.querySelectorAll(".nothing").length);
+
+document.querySelector("#dataset-button").addEventListener("click", (event) => {
+  const raw = event.currentTarget.dataset.taskId;
+  console.log("dataset:", raw, typeof raw);
+  console.log("Number:", Number(raw), typeof Number(raw));
+});
+
+document.querySelector("#add-record").addEventListener("click", () => {
+  const item = document.createElement("li");
+  item.textContent = "Новая запись";
+  document.querySelector("#items").append(item);
+  console.log("initialItems:", initialItems.length);
+  console.log("querySelectorAll:", document.querySelectorAll("#items li").length);
+});
+
+document.querySelector("#edit-title").addEventListener("click", (event) => {
+  const text = '<strong>Изменённый заголовок</strong> & "кавычки"';
+  document.querySelector("#event-output").textContent = text;
+  console.log("target:", event.target, "currentTarget:", event.currentTarget);
+});
+
+container.addEventListener("click", (event) => {
+  log.textContent += `container phase=${event.eventPhase} target=${event.target.nodeName} currentTarget=${event.currentTarget.id}\n`;
+}, true);
+
+document.querySelector("#edit-title").addEventListener("click", (event) => {
+  log.textContent += `button phase=${event.eventPhase} target=${event.target.nodeName} currentTarget=${event.currentTarget.id}\n`;
+});
+
+container.addEventListener("click", (event) => {
+  log.textContent += `bubble phase=${event.eventPhase} target=${event.target.nodeName} currentTarget=${event.currentTarget.id}\n`;
+});
+</script>
+</body>
+</html>

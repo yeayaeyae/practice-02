@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ПР3 — список задач</title>
+  <link rel="stylesheet" href="./src/styles.css">
+</head>
+<body>
+<main class="container">
+  <header>
+    <h1>Практическая работа №3</h1>
+    <p>Интерактивный список задач на DOM и событиях.</p>
+    <nav>
+      <a href="./index.html">Общий набор</a>
+      <a href="./index.html?dataset=variant">Свой вариант</a>
+    </nav>
+  </header>
+
+  <section id="task-summary" class="summary" aria-label="Сводка">
+    <div>Всего: <strong data-stat="total">0</strong></div>
+    <div>Выполнено: <strong data-stat="completed">0</strong></div>
+    <div>Осталось: <strong data-stat="pending">0</strong></div>
+    <div>Прогресс: <strong data-stat="progress">0.0%</strong></div>
+    <div>Показано: <strong data-stat="visible">0</strong></div>
+  </section>
+
+  <section>
+    <div id="task-filters" class="filters" aria-label="Фильтр задач">
+      <button type="button" data-filter="all" aria-pressed="true">Все</button>
+      <button type="button" data-filter="pending" aria-pressed="false">В работе</button>
+      <button type="button" data-filter="completed" aria-pressed="false">Выполненные</button>
+    </div>
+  </section>
+
+  <p id="operation-message" class="message" role="status"></p>
+  <p id="empty-message" class="empty" hidden></p>
+  <ul id="task-list" class="task-list"></ul>
+</main>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
